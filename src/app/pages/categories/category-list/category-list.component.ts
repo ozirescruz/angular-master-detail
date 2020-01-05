@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../shared/category.service';
+import { Category } from '../shared/category.model';
 
 @Component({
   selector: 'app-category-list',
@@ -8,11 +9,26 @@ import { CategoryService } from '../shared/category.service';
 })
 export class CategoryListComponent implements OnInit {
 
+  categories: Category[] = [];
+
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit() {
-    console.log(this.categoryService.getAll());
+    this.categoryService.getAll().subscribe(categories => this.categories = categories,
+      error => console.log("ERRO NO GET ALL")
+    )
 
   }
 
+  deleteCategory(category) {
+    const mustDelete = confirm("Confirma exclusão?");
+
+    if (mustDelete) {
+      this.categoryService.delete(category.id).subscribe(
+        () => this.categories = this.categories.filter(element => element.id !== category.id),
+        () => console.log("ERRO AO EXCLUIR!")
+      )
+    }
+
+  }
 }
