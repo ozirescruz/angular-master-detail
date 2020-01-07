@@ -2,14 +2,14 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page"><a routerLink="/categories">Categorias</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Formulário de Categoria</li>
+    <li class="breadcrumb-item active" aria-current="page">{{pageTitle}}</li>
   </ol>
 </nav>
 
 <div class="row">
   <div class="col-md">
     <h1 class="h2 border-left pl-2">
-      Formulário de Categoria
+      {{pageTitle}}
     </h1>
   </div>
   <div class="col-md">
@@ -17,7 +17,7 @@
         Voltar</span></a>
   </div>
 </div>
-<form [formGroup]="categoryForm">
+<form [formGroup]="categoryForm" (submit)="submitForm()">
   <div class="card">
     <div class="card-header">
       Informações sobre a categoria
@@ -26,19 +26,27 @@
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="name">Nome</label>
-          <input type="text" class="form-control" name="name" id="name">
+          <input type="text" class="form-control" name="name" id="name" formControlName="name">
+          <div class="text-danger" *ngIf="categoryForm.get('name').invalid && categoryForm.get('name').touched">
+            <div *ngIf="categoryForm.get('name').errors.required">
+              <i class="fa fa-bomb"><span> Dado obrigatório!</span></i>
+            </div>
+            <div *ngIf="categoryForm.get('name').errors.minlength">
+              <i class="fa fa-bomb"><span> Ao menos 2 caractéres!</span></i>
+            </div>
+          </div>
 
         </div>
         <div class="form-group col-md-8">
           <label for="description">Descrição</label>
-          <input type="text" class="form-control" name="description" id="description">
+          <input type="text" class="form-control" name="description" id="description" formControlName="description">
 
         </div>
 
       </div>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary btn-lg mt-2 float-right"><i class="fa fa-check-circle"
-      aria-hidden="true"></i><span>
+  <button [disabled]="submitingForm || categoryForm.invalid" type="submit"
+    class="btn btn-primary btn-lg mt-2 float-right"><i class="fa fa-check-circle" aria-hidden="true"></i><span>
       Salvar</span></button>
 </form>
