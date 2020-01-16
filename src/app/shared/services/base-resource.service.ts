@@ -20,12 +20,12 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
         const url = `${this.apiPath}/${id}`;
 
         return this.http.get(url).pipe(catchError(this.handleError),
-            map(this.jsonDataToT));
+            map(this.jsonDataToResource));
     }
 
     create(resource: T): Observable<T> {
         return this.http.post(this.apiPath, resource).pipe(catchError(this.handleError),
-            map(this.jsonDataToT));
+            map(this.jsonDataToResource));
     }
 
     update(resource: T): Observable<T> {
@@ -48,7 +48,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
         return resources;
     }
 
-    protected jsonDataToT(jsonData: any): T {
+    protected jsonDataToResource(jsonData: any): T {
         return jsonData as T;
     }
 
