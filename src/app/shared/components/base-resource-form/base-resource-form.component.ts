@@ -56,6 +56,8 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel>
   protected setCurrentAction() {
     this.currentAction =
       this.route.snapshot.url[0].path == "new" ? "new" : "edit";
+    console.log(this.currentAction);
+
   }
 
   protected loadResource() {
