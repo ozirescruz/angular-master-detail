@@ -27,7 +27,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let category of categories">
+    <tr *ngFor="let category of resources">
       <td>
         <strong>{{category.name}}</strong><br>
         <small>{{category.name}}</small>
@@ -36,7 +36,7 @@
         <a [routerLink]="[category.id, 'edit']" class="btn btn-outline-info btn-sm"><span><i class="fa fa-pencil"
               aria-hidden="true"></i>
             Editar</span></a>
-        <button class="btn btn-outline-danger btn-sm ml-2" (click)="deleteCategory(category)"><span><i
+        <button class="btn btn-outline-danger btn-sm ml-2" (click)="deleteResource(category)"><span><i
               class="fa fa-trash-o" aria-hidden="true"></i>
 
             Excluir</span></button>
