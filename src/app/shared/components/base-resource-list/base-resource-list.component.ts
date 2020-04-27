@@ -14,6 +14,9 @@ export abstract class BaseResourceListComponent<T extends BaseResourceModel> imp
       error => console.log("ERRO NO GET ALL")
     )
 
+    console.log(this.resources);
+
+
   }
 
   deleteResource(resource: T) {
